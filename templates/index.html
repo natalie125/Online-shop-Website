@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block nav %}
+    <li class="nav-item active">
+        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+    </li>
+    {% if current_user.is_authenticated %}
+        <li class="nav-item">
+            <a class="nav-link">{{ current_user.email }}</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/signout">Sign Out</a>
+        </li>
+    {% else %}
+        <li class="nav-item">
+            <a class="nav-link" href="/signin">Sign In</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/signup">Sign Up</a>
+        </li>
+    {% endif %}
+
+    <li class="nav-item">
+        <a class="nav-link" href="/shoppingcart">Shopping Cart</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/wishlist">Wishlist</a>
+    </li>
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Category
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="/men">Men</a>
+            <a class="dropdown-item" href="/women">Women</a>
+        </div>
+    </li>
+{% endblock %}
+{% block body %}
+    <main role="main" class="container">
+        <div class="starter-template">
+            <h1>ABOUT US</h1>
+            <p class="lead">We are a luxury brand founded in Britain in 1919. We are bring the best quality clothing at
+                a reasonable price to our customers. We have 1000+ designers to bring you different styles of clothes.
+                You will definitely find something you love here!</p>
+            <h1>CONTACT US</h1>
+            <p class="lead">Tel: 7510775275</p>
+            <p class="lead">Email: sc21nl@leeds.ac.uk</p>
+            <h1>OUR STORE</h1>
+            <p class="lead">Address: University of Leeds</p>
+        </div>
+    </main><!-- /.container -->
+{% endblock %}

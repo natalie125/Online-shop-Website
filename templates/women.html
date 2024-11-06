@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% block title %}Women{% endblock %}
+{% block head %}
+    {{ super() }}
+    <link href="{{ url_for('static', filename='css/men.css') }}" rel="stylesheet">
+{% endblock %}
+{% block nav %}
+    <li class="nav-item">
+        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+    </li>
+    {% if current_user.is_authenticated %}
+        <li class="nav-item">
+            <a class="nav-link">{{ current_user.email }}</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/signout">Sign Out</a>
+        </li>
+    {% else %}
+        <li class="nav-item">
+            <a class="nav-link" href="/signin">Sign In</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/signup">Sign Up</a>
+        </li>
+    {% endif %}
+    <li class="nav-item">
+        <a class="nav-link" href="/shoppingcart">Shopping Cart</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/wishlist">Wishlist</a>
+    </li>
+    <li class="nav-item dropdown active">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Category
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="/men">Men</a>
+            <a class="dropdown-item" href="/women">Women</a>
+        </div>
+    </li>
+{% endblock %}
+{% block body %}
+    <main role="main">
+        <div class="album py-5 bg-light">
+            <div class="container">
+                <div class="row">
+                    {% for good in goods %}
+                        <div class="col-md-4">
+                            <div class="card mb-4 box-shadow">
+                                <img class="card-img-top"
+                                     src="{{ url_for('static', filename=good.img) }}"
+                                     alt="Card image cap">
+                                <div class="card-body">
+                                    <p class="card-text">name: {{ good.name }}</p>
+                                    <p class="card-text">price: £ {{ good.price }}</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="btn-group">
+                                            <a type="button" class="btn btn-sm btn-outline-secondary"
+                                               href="{{ url_for('addcart', useremail=current_user.email, goodsid=good.id) }}">Add
+                                                to cart
+                                            </a>
+                                            <a type="button" class="btn btn-sm btn-outline-secondary"
+                                               href="{{ url_for('addwish', useremail=current_user.email, goodsid=good.id) }}">Add
+                                                to
+                                                wishlist
+                                            </a>
+                                        </div>
+                                        {#                                    <small class="text-muted">9 mins</small>#}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+
+    <script type="text/javascript" src="{{ url_for('static', filename='js/men.js') }}"></script>
+
+{% endblock %}
